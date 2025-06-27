@@ -3,10 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-import sys
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),"..")))
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__),".."))
 
 def accounting_project_details():
     st.markdown("""
@@ -18,8 +14,8 @@ def accounting_project_details():
 def top_customers():
     df =  pd.read_csv('data/accounting_dashboard/party_outstanding.csv')
 
-    if not os.path.exists(os.path.join(project_root, 'Portfolio/reports/plots')):
-        os.makedirs(os.path.join(project_root, 'Portfolio/reports/plots'))
+    if not os.path.exists('reports/plots'):
+        os.makedirs('reports/plots')
 
     # Filter top 5 customers with highest dues (negative outstanding)
     top_customers = df[(df['party_type'] == 'Customer') & (df['outstanding'] < 0)]
@@ -62,7 +58,7 @@ def net_position():
     plt.tight_layout()
     
     # Save and show
-    plots_dir = os.path.join(project_root,"Portfolio/reports/plots")
+    plots_dir = "reports/plots"
     plot_path = os.path.join(plots_dir, "net_position_pie.png")
     plt.savefig(plot_path)
     st.pyplot(fig) 
@@ -74,8 +70,8 @@ Insight: The business currently has a net receivable position of ₹8,010, with 
 
 def monthly_trend():
     mt = pd.read_csv('data/accounting_dashboard/monthly_trend.csv')
-    if not os.path.exists(os.path.join(project_root, 'Portfolio/reports/plots')):
-        os.makedirs(os.path.join(project_root, 'Portfolio/reports/plots'))
+    if not os.path.exists('reports/plots'):
+        os.makedirs('reports/plots')
 
     fig, ax = plt.subplots(figsize=(8, 5))
     ax.plot(mt['month'], mt['total_sales'], marker='o', label='Sales', color='green')
@@ -87,8 +83,8 @@ def monthly_trend():
     plt.legend()
     plt.grid(True, linestyle="--", alpha=0.5)
     plt.tight_layout()
-    
-    plots_dir = os.path.join(project_root,"Portfolio/reports/plots")
+
+    plots_dir = "reports/plots"
     plot_path = os.path.join(plots_dir, "monthly_trend.png")
     plt.savefig(plot_path)
     st.pyplot(fig) 

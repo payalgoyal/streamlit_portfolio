@@ -5,9 +5,6 @@ import seaborn as sns
 import os
 import sys
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),"..")))
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__),".."))
-
 def retail_project_details():
     st.markdown("""
             - Built end-to-end batch ETL pipeline for Retail Analytics using Airflow orchestration with full task-level modularization.
@@ -20,8 +17,8 @@ def retail_project_details():
     
 def top_selling_products_by_price():
     df = pd.read_csv("data/retail_analytics/sales_enriched_gold.csv")
-    if not os.path.exists(os.path.join(project_root, 'Portfolio/reports/plots')):
-        os.makedirs(os.path.join(project_root, 'Portfolio/reports/plots'))
+    if not os.path.exists('reports/plots'):
+        os.makedirs('reports/plots')
 
     top_products = df.groupby("Description")["TotalPrice"].sum().sort_values(ascending=False).head(10)
     fig, ax = plt.subplots(figsize=(12, 6))
@@ -39,7 +36,7 @@ def top_selling_products_by_price():
     plt.tight_layout()
 
     # Save and show
-    plots_dir = os.path.join(project_root,"Portfolio/reports/plots")
+    plots_dir = 'reports/plots'
     plot_path = os.path.join(plots_dir, "top_products_sales.png")
     plt.savefig(plot_path)
     st.pyplot(fig)  # This renders the figure inside Streamlit
@@ -49,8 +46,8 @@ def top_selling_products_by_price():
 
 def monthly_revenue():
     df = pd.read_csv("data/retail_analytics/sales_enriched_gold.csv")
-    if not os.path.exists(os.path.join(project_root, 'Portfolio/reports/plots')):
-        os.makedirs(os.path.join(project_root, 'Portfolio/reports/plots'))
+    if not os.path.exists('reports/plots'):
+        os.makedirs('reports/plots')
 
     monthly_revenue = df.groupby(['InvoiceYear', 'InvoiceMonth'])['TotalPrice'].sum().reset_index()
     monthly_revenue['Month'] = monthly_revenue['InvoiceYear'].astype(str) + '-' + monthly_revenue['InvoiceMonth'].astype(str)
@@ -68,7 +65,7 @@ def monthly_revenue():
     ax.set_ylabel('Total Revenue (£)')
     plt.tight_layout()
 
-    plots_dir = os.path.join(project_root,"Portfolio/reports/plots")
+    plots_dir = 'reports/plots'
     # Step 5: Save and display
     plot_path = os.path.join(plots_dir, "monthly_revenue_trend.png")
     fig.savefig(plot_path)
@@ -77,8 +74,8 @@ def monthly_revenue():
 
 def top_avg_order():
     df = pd.read_csv("data/retail_analytics/sales_enriched_gold.csv")
-    if not os.path.exists(os.path.join(project_root, 'Portfolio/reports/plots')):
-        os.makedirs(os.path.join(project_root, 'Portfolio/reports/plots'))
+    if not os.path.exists('reports/plots'):
+        os.makedirs('reports/plots')
 
     top_countries = df.groupby("Country")["TotalPrice"].mean().sort_values(ascending=False).head(10)
     fig, ax = plt.subplots(figsize=(12, 6))
@@ -96,8 +93,7 @@ def top_avg_order():
     plt.tight_layout()
 
     # Save and show
-    plots_dir = os.path.join(project_root,"Portfolio/reports/plots")
-    plot_path = os.path.join(plots_dir, "top_countries_average_order_value.png")
+    plot_path = os.path.join("reports/plots", "top_countries_average_order_value.png")
     plt.savefig(plot_path)
     st.pyplot(fig)  # This renders the figure inside Streamlit
 

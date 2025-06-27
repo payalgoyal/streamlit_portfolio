@@ -5,9 +5,6 @@ import seaborn as sns
 import os
 import sys
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),"..")))
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__),".."))
-
 def bank_project_details():
     st.markdown("""
             - Designed and deployed an end-to-end real-time ETL pipeline using AWS services following Medallion Architecture (Bronze → Silver → Gold)
@@ -20,8 +17,8 @@ def bank_project_details():
     
 def job_vs_deposit():
     df = pd.read_json("data/bank_marketing/job_vs_deposit.json", lines=True)
-    if not os.path.exists(os.path.join(project_root, 'Portfolio/reports/plots')):
-        os.makedirs(os.path.join(project_root, 'Portfolio/reports/plots'))
+    if not os.path.exists('reports/plots'):
+        os.makedirs('reports/plots')
 
     fig, ax = plt.subplots(figsize=(12, 6))
     sns.barplot(
@@ -38,15 +35,15 @@ def job_vs_deposit():
     plt.tight_layout()
 
     # Save and show
-    plots_dir = os.path.join(project_root,"Portfolio/reports/plots")
+    plots_dir = "reports/plots"
     plot_path = os.path.join(plots_dir, "job_vs_deposit.png")
     plt.savefig(plot_path)
     st.pyplot(fig)  
 
 def age_group_perf():
     df = pd.read_json("data/bank_marketing/age_group_perf.json",lines=True)
-    if not os.path.exists(os.path.join(project_root, 'Portfolio/reports/plots')):
-        os.makedirs(os.path.join(project_root, 'Portfolio/reports/plots'))
+    if not os.path.exists('reports/plots'):
+        os.makedirs('reports/plots')
 
     labels = df["age_group"]
     sizes = df["deposits"]
@@ -64,15 +61,15 @@ def age_group_perf():
     ax.set_title("Deposit Distribution by Age Group")
 
     plt.tight_layout()
-    plots_dir = os.path.join(project_root,"Portfolio/reports/plots")
+    plots_dir = "reports/plots"
     plot_path = os.path.join(plots_dir, "job_vs_deposit.png")
     plt.savefig(plot_path)
     st.pyplot(fig)  
 
 def edu_loan_stats():
     df = pd.read_json("data/bank_marketing/edu_loan_stats.json",lines=True)
-    if not os.path.exists(os.path.join(project_root, 'Portfolio/reports/plots')):
-        os.makedirs(os.path.join(project_root, 'Portfolio/reports/plots'))
+    if not os.path.exists('reports/plots'):
+        os.makedirs('reports/plots')
 
     fig, ax = plt.subplots(figsize=(12,6))
     sns.barplot(

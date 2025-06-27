@@ -3,16 +3,11 @@ import pandas as pd
 from datetime import datetime
 import matplotlib.pyplot as plt
 import seaborn as sns
-import os
-import sys
 from projects.retail_analytics.project_detail import retail_project_details, top_selling_products_by_price, monthly_revenue, top_avg_order
 from projects.bank_marketing.project_detail import bank_project_details, job_vs_deposit, age_group_perf, edu_loan_stats
 from projects.accounting_dashboard.project_detail import accounting_project_details, top_customers,net_position, monthly_trend
 from projects.pyspark_learning.project_detail import pyspark_project_details
 from sidebar_section.sidebar import sidebar_content
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),"..")))
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__),".."))
 
 sns.set_theme(style="whitegrid")
 
