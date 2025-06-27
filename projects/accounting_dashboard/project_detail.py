@@ -29,7 +29,7 @@ def top_customers():
     plt.tight_layout()
 
     # Save and show
-    plots_dir = os.path.join(project_root,"Portfolio/reports/plots")
+    plots_dir = "reports/plots"
     plot_path = os.path.join(plots_dir, "top_customers_outstanding.png")
     plt.savefig(plot_path)
     st.pyplot(fig) 
